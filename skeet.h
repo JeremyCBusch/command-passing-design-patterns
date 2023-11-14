@@ -21,6 +21,26 @@
 
 #include <list>
 
+
+ /******************************************************************
+  * RANDOM
+  * These functions generate a random number.
+  ****************************************************************/
+int randomInt(int min, int max)
+{
+   assert(min < max);
+   int num = (rand() % (max - min)) + min;
+   assert(min <= num && num <= max);
+   return num;
+}
+double randomFloat(double min, double max)
+{
+   assert(min <= max);
+   double num = min + ((double)rand() / (double)RAND_MAX * (max - min));
+   assert(min <= num && num <= max);
+   return num;
+}
+
 /*************************************************************************
  * Skeet
  * The game class
@@ -51,6 +71,7 @@ private:
                    double redFore, double greenFore, double blueFore,
                    double redBack, double greenBack, double blueBack) const;
     void drawBullseye(double angle) const;
+    void execute(float command[], Bird* bird);
 
     Gun gun;                       // the gun
     std::list<Bird*> birds;        // all the shootable birds

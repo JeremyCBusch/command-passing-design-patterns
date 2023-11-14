@@ -286,6 +286,30 @@ void Skeet::drawBullseye(double angle) const
    glEnd();
 }
 
+void Skeet::execute(float command[], Bird * bird)
+{
+   bird->getVelocity() *= command[0];
+
+   bird->getVelocity().addDy(command[1]);
+
+   // erratic turns eery half a second or so
+   if (command[2] != 0.0 && randomInt(0, 15) == 0)
+   {
+      bird->getVelocity().addDy(randomFloat(-1.5, 1.5));
+      bird->getVelocity().addDx(randomFloat(-1.5, 1.5));
+   }
+
+   // inertia
+   bird->getPosition().add(bird->getVelocity());
+
+   // out of bounds checker
+   if (bird->isOutOfBounds())
+   {
+      bird->kill();
+      bird->setPoints(bird->getPoints() * -1); // points go negative when it is missed!
+   }
+}
+
 /************************
  * SKEET DRAW LEVEL
  * output everything that will be on the screen
@@ -485,4 +509,6 @@ void Skeet::spawn()
       default:
          break;
    }
+
+
 }

@@ -70,6 +70,10 @@ double randomFloat(double min, double max)
  ******************************************************************/
 Standard::Standard(double radius, double speed, int points) : Bird()
 {
+   this->advanceCommand[0] = .995;
+   this->advanceCommand[1] = 0.0;
+   this->advanceCommand[2] = 0.0;
+
    // set the position: standard birds start from the middle
    pt.setY(randomFloat(dimensions.getY() * 0.25, dimensions.getY() * 0.75));
    pt.setX(0.0);
@@ -90,6 +94,9 @@ Standard::Standard(double radius, double speed, int points) : Bird()
  ******************************************************************/
 Floater::Floater(double radius, double speed, int points) : Bird()
 {
+   this->advanceCommand[0] = .990;
+   this->advanceCommand[1] = .05;
+   this->advanceCommand[2] = 0;
    // floaters start on the lower part of the screen because they go up with time
    pt.setY(randomFloat(dimensions.getY() * 0.01, dimensions.getY() * 0.5));
    pt.setX(0.0);
@@ -109,7 +116,10 @@ Floater::Floater(double radius, double speed, int points) : Bird()
  * SINKER constructor
  ******************************************************************/
 Sinker::Sinker(double radius, double speed, int points) : Bird()
-{
+{  
+   this->advanceCommand[0] = 0;
+	this->advanceCommand[1] = -.07;
+	this->advanceCommand[2] = 0;
    // sinkers start on the upper part of the screen because they go down with time
    pt.setY(randomFloat(dimensions.getY() * 0.50, dimensions.getY() * 0.95));
    pt.setX(0.0);
@@ -130,6 +140,9 @@ Sinker::Sinker(double radius, double speed, int points) : Bird()
  ******************************************************************/
 Crazy::Crazy(double radius, double speed, int points) : Bird()
 {
+   this->advanceCommand[0] = 0.0;
+   this->advanceCommand[1] = 0.0;
+   this->advanceCommand[2] = 1.0;
    // crazy birds start in the middle and can go any which way
    pt.setY(randomFloat(dimensions.getY() * 0.25, dimensions.getY() * 0.75));
    pt.setX(0.0);
@@ -157,6 +170,7 @@ Crazy::Crazy(double radius, double speed, int points) : Bird()
  *********************************************/
 void Standard::advance()
 {
+
    // small amount of drag
    v *= 0.995;
 

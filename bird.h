@@ -9,6 +9,7 @@
 
 #pragma once
 #include "position.h"
+#include <string>
 
 /**********************
  * BIRD
@@ -17,6 +18,7 @@
 class Bird
 {
 protected:
+   float advanceCommand[3];
    static Position dimensions; // size of the screen
    Position pt;                  // position of the flyer
    Velocity v;                // velocity of the flyer
@@ -57,6 +59,7 @@ public:
 class Standard : public Bird
 {
 public:
+    
     Standard(double radius = 25.0, double speed = 5.0, int points = 10);
     void draw();
     void advance();
