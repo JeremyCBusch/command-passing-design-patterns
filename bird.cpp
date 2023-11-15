@@ -70,9 +70,9 @@ double randomFloat(double min, double max)
  ******************************************************************/
 Standard::Standard(double radius, double speed, int points) : Bird()
 {
-   this->advanceCommand[0] = .995;
-   this->advanceCommand[1] = 0.0;
-   this->advanceCommand[2] = 0.0;
+   this->advanceCommand[0] = .995;  // drag
+   this->advanceCommand[1] = 0.0;   // gravity
+   this->advanceCommand[2] = 0.0;   // turn
 
    // set the position: standard birds start from the middle
    pt.setY(randomFloat(dimensions.getY() * 0.25, dimensions.getY() * 0.75));
@@ -117,7 +117,7 @@ Floater::Floater(double radius, double speed, int points) : Bird()
  ******************************************************************/
 Sinker::Sinker(double radius, double speed, int points) : Bird()
 {  
-   this->advanceCommand[0] = 0;
+   this->advanceCommand[0] = 1.0;
 	this->advanceCommand[1] = -.07;
 	this->advanceCommand[2] = 0;
    // sinkers start on the upper part of the screen because they go down with time
@@ -140,7 +140,7 @@ Sinker::Sinker(double radius, double speed, int points) : Bird()
  ******************************************************************/
 Crazy::Crazy(double radius, double speed, int points) : Bird()
 {
-   this->advanceCommand[0] = 0.0;
+   this->advanceCommand[0] = 1.0;
    this->advanceCommand[1] = 0.0;
    this->advanceCommand[2] = 1.0;
    // crazy birds start in the middle and can go any which way

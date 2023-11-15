@@ -34,8 +34,11 @@ public:
    void operator=(const Velocity & rhs) { v = rhs;     }
    void kill()                          { dead = true; }
    void setPoints(int pts)              { points = pts;}
+   void setVelocity(Velocity newV) { v = newV; }
+   void setPosition(Position newPos) { pt = newPos; }
 
    // getters
+   float * getAdvanceCommand() { return advanceCommand; }
    bool isDead()           const { return dead;   }
    Position getPosition()     const { return pt;     }
    Velocity getVelocity()  const { return v;      }

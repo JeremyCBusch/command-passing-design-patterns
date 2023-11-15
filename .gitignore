@@ -21,3 +21,5 @@
 *.pdb
 *.log
 *.idb
+*.recipe
+*.ilk

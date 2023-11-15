@@ -31,6 +31,10 @@ using namespace std;
 #define GLUT_TEXT GLUT_BITMAP_HELVETICA_12
 #endif // _WIN32
 
+
+
+
+
 /************************
  * SKEET ANIMATE
  * move the gameplay by one unit of time
@@ -56,7 +60,8 @@ void Skeet::animate()
    // move the birds and the bullets
    for (auto element : birds)
    {
-      element->advance();
+      execute(element->getAdvanceCommand(), element);
+      //element->advance();
       hitRatio.adjust(element->isDead() ? -1 : 0);
    }
    for (auto bullet : bullets)
@@ -286,21 +291,48 @@ void Skeet::drawBullseye(double angle) const
    glEnd();
 }
 
+
+/******************************************************************
+ * RANDOM
+ * These functions generate a random number.
+ ****************************************************************/
+int randomIntt(int min, int max)
+{
+   assert(min < max);
+   int num = (rand() % (max - min)) + min;
+   assert(min <= num && num <= max);
+   return num;
+}
+double randomFloatt(double min, double max)
+{
+   assert(min <= max);
+   double num = min + ((double)rand() / (double)RAND_MAX * (max - min));
+   assert(min <= num && num <= max);
+   return num;
+}
+
+
 void Skeet::execute(float command[], Bird * bird)
 {
-   bird->getVelocity() *= command[0];
+   bird->setVelocity(bird->getVelocity() *= command[0]);
 
-   bird->getVelocity().addDy(command[1]);
+   Velocity newGravity = bird->getVelocity();
+   newGravity.addDy(command[1]);
+   bird->setVelocity(newGravity);
 
    // erratic turns eery half a second or so
-   if (command[2] != 0.0 && randomInt(0, 15) == 0)
+   if (command[2] != 0.0 && randomIntt(0, 15) == 0)
    {
-      bird->getVelocity().addDy(randomFloat(-1.5, 1.5));
-      bird->getVelocity().addDx(randomFloat(-1.5, 1.5));
+      Velocity newTurnVelocity = bird->getVelocity();
+      newTurnVelocity.addDy(randomFloatt(-1.5, 1.5));
+      newTurnVelocity.addDx(randomFloatt(-1.5, 1.5));
+	  bird->setVelocity(newTurnVelocity);
    }
 
    // inertia
-   bird->getPosition().add(bird->getVelocity());
+   Position newPosition = bird->getPosition();
+   newPosition.add(bird->getVelocity());
+   bird->setPosition(newPosition);
 
    // out of bounds checker
    if (bird->isOutOfBounds())
