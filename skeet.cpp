@@ -316,11 +316,11 @@ void Skeet::execute(float command[], Bird * bird)
 {
    bird->setVelocity(bird->getVelocity() *= command[0]);
 
-   Velocity newGravity = bird->getVelocity();
-   newGravity.addDy(command[1]);
-   bird->setVelocity(newGravity);
+   Velocity newGravityAppliedVelocity = bird->getVelocity();
+   newGravityAppliedVelocity.addDy(command[1]);
+   bird->setVelocity(newGravityAppliedVelocity);
 
-   // erratic turns eery half a second or so
+   // erratic turns every half a second or so
    if (command[2] != 0.0 && randomIntt(0, 15) == 0)
    {
       Velocity newTurnVelocity = bird->getVelocity();
