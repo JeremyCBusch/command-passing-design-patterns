@@ -9,6 +9,7 @@
 
 #pragma once
 #include "position.h"
+#include "order.h"
 
 /**********************
  * BIRD
@@ -23,6 +24,7 @@ protected:
    double radius;             // the size (radius) of the flyer
    bool dead;                 // is this flyer dead?
    int points;                // how many points is this worth?
+   Order* order = nullptr;
    
 public:
    Bird() : dead(false), points(0), radius(1.0) { }
@@ -44,6 +46,9 @@ public:
       return (pt.getX() < -radius || pt.getX() >= dimensions.getX() + radius ||
               pt.getY() < -radius || pt.getY() >= dimensions.getY() + radius);
    }
+   Order *getOrder();
+   void setVelocity(Velocity newV) { v = newV; }
+   void setPosition(Position newPos) { pt = newPos; }
 
    // special functions
    virtual void draw() = 0;
@@ -60,6 +65,7 @@ public:
     Standard(double radius = 25.0, double speed = 5.0, int points = 10);
     void draw();
     void advance();
+    
 };
 
 /*********************************************
@@ -72,6 +78,7 @@ public:
     Floater(double radius = 30.0, double speed = 5.0, int points = 15);
     void draw();
     void advance();
+
 };
 
 /*********************************************
@@ -84,6 +91,7 @@ public:
     Crazy(double radius = 30.0, double speed = 4.5, int points = 30);
     void draw();
     void advance();
+
 };
 
 /*********************************************

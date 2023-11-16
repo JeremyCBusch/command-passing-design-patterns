@@ -56,7 +56,8 @@ void Skeet::animate()
    // move the birds and the bullets
    for (auto element : birds)
    {
-      element->advance();
+      execute(element->getOrder(), element);
+      //element->advance();
       hitRatio.adjust(element->isDead() ? -1 : 0);
    }
    for (auto bullet : bullets)
@@ -485,4 +486,9 @@ void Skeet::spawn()
       default:
          break;
    }
+}
+
+void Skeet::execute(Order* order, Bird* bird)
+{
+   order->execute(bird);
 }

@@ -70,6 +70,7 @@ double randomFloat(double min, double max)
  ******************************************************************/
 Standard::Standard(double radius, double speed, int points) : Bird()
 {
+   order = new StandardOrder();
    // set the position: standard birds start from the middle
    pt.setY(randomFloat(dimensions.getY() * 0.25, dimensions.getY() * 0.75));
    pt.setX(0.0);
@@ -90,6 +91,7 @@ Standard::Standard(double radius, double speed, int points) : Bird()
  ******************************************************************/
 Floater::Floater(double radius, double speed, int points) : Bird()
 {
+   order = new FloaterOrder();
    // floaters start on the lower part of the screen because they go up with time
    pt.setY(randomFloat(dimensions.getY() * 0.01, dimensions.getY() * 0.5));
    pt.setX(0.0);
@@ -110,6 +112,7 @@ Floater::Floater(double radius, double speed, int points) : Bird()
  ******************************************************************/
 Sinker::Sinker(double radius, double speed, int points) : Bird()
 {
+   order = new SinkerOrder();
    // sinkers start on the upper part of the screen because they go down with time
    pt.setY(randomFloat(dimensions.getY() * 0.50, dimensions.getY() * 0.95));
    pt.setX(0.0);
@@ -130,6 +133,7 @@ Sinker::Sinker(double radius, double speed, int points) : Bird()
  ******************************************************************/
 Crazy::Crazy(double radius, double speed, int points) : Bird()
 {
+   order = new CrazyOrder();
    // crazy birds start in the middle and can go any which way
    pt.setY(randomFloat(dimensions.getY() * 0.25, dimensions.getY() * 0.75));
    pt.setX(0.0);
@@ -336,4 +340,9 @@ void Sinker::draw()
       drawDisk(pt, radius - 0.0, 0.0, 0.0, 0.8);
       drawDisk(pt, radius - 4.0, 0.0, 0.0, 0.0);
    }
+}
+
+Order* Bird::getOrder()
+{
+   return order;
 }

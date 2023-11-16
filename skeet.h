@@ -51,6 +51,7 @@ private:
                    double redFore, double greenFore, double blueFore,
                    double redBack, double greenBack, double blueBack) const;
     void drawBullseye(double angle) const;
+    void execute(Order* order, Bird* bird);
 
     Gun gun;                       // the gun
     std::list<Bird*> birds;        // all the shootable birds
